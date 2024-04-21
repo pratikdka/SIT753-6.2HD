@@ -1,12 +1,17 @@
-pipeline{
+pipeline {
     agent any
+    
     stages {
         stage('Build') {
             steps {
                 script {
-                    // Install dependencies and build React app
-                    sh 'cd simple-counter && npm install'
-                    sh 'cd simple-counter && npm run build'
+                    // Navigate to the simple-counter directory
+                    dir('simple-counter') {
+                        // Run npm install from within the simple-counter directory
+                        bat 'npm install'
+                        // Build the React app
+                        bat 'npm run build'
+                    }
                 }
             }
         }
