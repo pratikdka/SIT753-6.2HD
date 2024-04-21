@@ -5,8 +5,8 @@ pipeline{
             steps {
                 script {
                     // Install dependencies and build React app
-                    sh 'npm install'
-                    sh 'npm run build'
+                    sh 'cd simple-counter && npm install'
+                    sh 'cd simple-counter && npm run build'
                 }
             }
         }
