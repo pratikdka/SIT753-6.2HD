@@ -19,14 +19,14 @@ function App() {
     return (
         <div className="App">
             <h1>Simple Counter</h1>
-                <div className="counter">
-                    <button onClick={decrement}>-</button>
-                        <input type="text" value={count} readOnly />
-                            <button onClick={increment}>+</button>
-                </div>
-                    <button onClick={clear} className="clear-button">
-                        Clear
-                    </button>
+            <div className="counter">
+                <button onClick={decrement}>-</button>
+                <input type="text" value={count} readOnly />
+                <button onClick={increment}>+</button>
+            </div>
+            <button onClick={clear} className="clear-button">
+                Clear
+            </button>
         </div>
     );
 }
