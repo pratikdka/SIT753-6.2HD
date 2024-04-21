@@ -16,7 +16,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    bat 'npm test' // Run tests using Jest
+                    dir('simple-counter'){
+                        bat 'npm run test' // Run tests using Jest
+                    }
                 }
             }
         }
