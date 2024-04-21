@@ -17,7 +17,7 @@ pipeline {
     stage('Test') {
         steps {
             script {
-                    bat 'npm test'     // Run tests using Jest
+                bat 'npm test'     // Run tests using Jest
             }
         }
     }
