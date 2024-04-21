@@ -13,11 +13,11 @@ pipeline {
                 }
             }
         }
-    }
-    stage('Test') {
-        steps {
-            script {
-                bat 'npm test'     // Run tests using Jest
+        stage('Test') {
+            steps {
+                script {
+                    bat 'npm test' // Run tests using Jest
+                }
             }
         }
     }
