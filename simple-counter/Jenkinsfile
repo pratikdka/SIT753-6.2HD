@@ -2,16 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build') {  /* Build Stage */
             steps {
                 script {
                     // Navigate to the simple-counter directory
                     dir('simple-counter') {
-                        // Run npm install from within the simple-counter directory
-                        bat 'npm install'
-                        // Build the React app
-                        bat 'npm run build'
+                        bat 'npm install'    // Run npm install from within the simple-counter directory
+                        bat 'npm run build'  // Build the React app
                     }
+                }
+            }
+        }
+    }
+    stage('Test') {
+        steps {
+            script {
+                // Install dependencies and run tests
+                dir('simple-counter'){
+                    bat 'npm test'     // Run tests using Jest
                 }
             }
         }
