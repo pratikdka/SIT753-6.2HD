@@ -2,6 +2,9 @@ import {render, screen, fireEvent} from '@testing-library/react';
 import App from '../App';
 import {React} from 'react';
 
+/* global describe, test, expect */
+/* eslint no-undef: "error" */
+
 describe('App component', () => {
 	test('increments counter', () => {
 		render(<App />);
