@@ -5,8 +5,8 @@ pipeline{
             steps {
                 script {
                     // Install dependencies and build React app
-                    sh 'npm install'
-                    sh 'npm run build'
+                    bat 'npm install'
+                    bat 'npm run build'
                 }
             }
         }
