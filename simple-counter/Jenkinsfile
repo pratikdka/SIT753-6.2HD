@@ -22,5 +22,16 @@ pipeline {
                 }
             }
         }
+        stage('Code Quality Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQubeServer') {
+                        dir('simple-counter') {
+                            bat "sonar-scanner"
+                        }
+                    }
+                }
+            }
+        }
     }
 }
