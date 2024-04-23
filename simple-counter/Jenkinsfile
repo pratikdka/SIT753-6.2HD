@@ -45,8 +45,7 @@ pipeline {
                 script {
                     // Assuming the Dockerfile and docker-compose.yml are in the root of simple-counter
                     dir('simple-counter') {
-                        bat 'docker-compose down' // Take down existing containers if any
-                        bat 'docker compose up -d --build' // Build and run the containers
+                        bat 'docker compose -d --build' // Build and run the containers
                     }
                 }
             }
