@@ -36,7 +36,7 @@ pipeline {
                 script {
                     // Deploy application using Docker Compose
                     dir('simple-counter') {
-                        bat 'docker-compose up -d --build'            
+                        bat 'docker compose up -d --build'       
                     }
                 }
             }
