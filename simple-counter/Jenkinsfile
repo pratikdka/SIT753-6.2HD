@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        AZURE_CREDENTIALS_ID = 'your-azure-credentials-id'
+        APP_NAME = 'your-app-service-name'
+        RESOURCE_GROUP = 'your-resource-group'
+    }
+
     stages {
         stage('Build') {  /* Build Stage */
             steps {
@@ -13,6 +19,7 @@ pipeline {
                 }
             }
         }
+
         stage('Test') {
             steps {
                 script {
@@ -22,6 +29,7 @@ pipeline {
                 }
             }
         }
+
         stage('Code Quality Analysis') {
             steps {
                 script {
@@ -31,15 +39,17 @@ pipeline {
                 }
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         script {
-        //             // Deploy application using Docker Compose
-        //             dir('simple-counter') {
-        //                 bat 'docker-compose up -d --build'       
-        //             }
-        //         }
-        //     }
-        // }
+
+        stage('Deploy') { /* Deployment Stage */
+            steps {
+                script {
+                    // Assuming the Dockerfile and docker-compose.yml are in the root of simple-counter
+                    dir('simple-counter') {
+                        bat 'docker-compose down' // Take down existing containers if any
+                        bat 'docker compose up -d --build' // Build and run the containers
+                    }
+                }
+            }
+        }
     }
 }
