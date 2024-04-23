@@ -31,15 +31,15 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                script {
-                    // Deploy application using Docker Compose
-                    dir('simple-counter') {
-                        bat 'docker-compose up -d --build'       
-                    }
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             // Deploy application using Docker Compose
+        //             dir('simple-counter') {
+        //                 bat 'docker-compose up -d --build'       
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
