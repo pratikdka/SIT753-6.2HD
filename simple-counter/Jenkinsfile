@@ -43,8 +43,7 @@ pipeline {
             steps {
                 script {
                     dir('simple-counter'){
-                        bat 'npm i -g heroku'
-                        bat 'heroku authorizations:create --description "Jenkins deployment"'
+                        // bat 'heroku authorizations:create --description "Jenkins deployment"'
                         bat 'git push heroku main'
                     }
                 }
