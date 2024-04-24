@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        AZURE_CREDENTIALS_ID = 'your-azure-credentials-id'
-        APP_NAME = 'your-app-service-name'
-        RESOURCE_GROUP = 'your-resource-group'
+        // The credentialsId is the ID user sets when adding the credential
+        HEROKU_API_KEY = credentials('heroku-api-key')
     }
 
     stages {
@@ -43,10 +42,8 @@ pipeline {
         stage('Deploy') { /* Deployment Stage */
             steps {
                 script {
-                    // Assuming the Dockerfile and docker-compose.yml are in the root of simple-counter
-                    dir('simple-counter') {
-                        bat 'docker compose up -d --build' // Build and run the containers
-                    }
+                    sh 'heroku authorizations:create --description "Jenkins deployment" -y'
+                    sh 'git push heroku main'
                 }
             }
         }
