@@ -37,7 +37,7 @@ pipeline {
             steps{
                 dir('simple-counter'){
                     withCredentials([usernameColonPassword(credentialsId: 'sit753HD', variable: 'PASS')]) {
-                        bat 'git checkout sit753-assignment'
+                        bat 'git checkout -b sit753-assignment'
                         bat 'git push https://${PASS}@git.heroku.com/sit753-assignment.git sit753-assignment'
                     }
                 }
