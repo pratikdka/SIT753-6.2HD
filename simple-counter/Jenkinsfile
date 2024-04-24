@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy') { /* Deployment Stage */
             steps {
                 script {
-                    dir('sumple-counter'){
+                    dir('simple-counter'){
                         bat 'heroku authorizations:create --description "Jenkins deployment" -y'
                         bat 'git push heroku main'
                     }
