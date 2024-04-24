@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // The credentialsId is the ID user sets when adding the credential
-        HEROKU_API_KEY = credentials('heroku-api-key')
-    }
-
     stages {
         stage('Build') {  /* Build Stage */
             steps {
@@ -38,13 +33,11 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy') { /* Deployment Stage */
-            steps {
-                script {
-                    dir('simple-counter'){
-                        bat 'heroku authorizations:create --description "Jenkins deployment"'
-                        bat 'git push heroku master'
+        stage('Deploy to Heroku'){
+            steps{
+                dir('simple-counter'){
+                    withCredentials([usernameColonPassword(credentialsId: 'sit753HD', variable: 'PASS')]) {
+                        bat 'git push https://${PASS}@git.heroku.com/sit753-assignment.git master'
                     }
                 }
             }
