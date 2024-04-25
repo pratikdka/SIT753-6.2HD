@@ -5,5 +5,8 @@
     "jest-sonar-reporter": "^2.0.0",
     "sonarqube": "^0.0.1",
     "sonarqube-scanner": "^3.4.0"
+  },
+  "dependencies": {
+    "zip": "^1.2.0"
   }
 }
