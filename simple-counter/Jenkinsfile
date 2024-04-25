@@ -36,13 +36,8 @@ pipeline {
         stage('Deploy to Netlify') {
             steps {
                 script {
-                    bat 'npm install zip'
-                // Zip the build folder
                     dir('simple-counter/build') {
-                        bat 'zip -r ../build.zip ./*'
-                    }
-
-                    // Deploy to Netlify using the Netlify API
+                        // bat 'zip -r ../build.zip ./*'
                         withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
                             def response = sh(script: '''
                                 curl -X POST \
@@ -54,6 +49,9 @@ pipeline {
                 
                             echo "Netlify deployment response: ${response}"
                         }
+                    }
+
+                    // Deploy to Netlify using the Netlify API
                 }
             }
         }
