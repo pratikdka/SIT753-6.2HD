@@ -34,17 +34,7 @@ pipeline {
                 }
             }
         }
-
-        stage('Test Next'){
-            steps{
-                script{
-                    dir('simple-counter'){
-                        bat 'netlify dev'
-                    }
-                }
-            }
-        }
-
+        
         stage('Deploy to Netlify') {
             steps {
                 script {
