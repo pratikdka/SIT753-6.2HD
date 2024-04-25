@@ -33,13 +33,26 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Heroku'){
-            steps{
-                dir('simple-counter'){
-                    withCredentials([usernameColonPassword(credentialsId: 'sit753HD', variable: 'PASS')]) {
-                        bat 'git checkout -b sit753-assignment'
-                        bat 'git push https://${PASS}@git.heroku.com/sit753-assignment.git sit753-assignment'
+        stage('Deploy to Netlify') {
+            steps {
+                script {
+            // Zip the build folder
+                    dir('simple-counter/build') {
+                        bat 'zip -r ../build.zip ./*'
                     }
+
+                        // Deploy to Netlify using the Netlify API
+                        withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
+                            def response = sh(script: '''
+                                curl -X POST \
+                                -H "Content-Type: application/zip" \
+                                -H "Authorization: Bearer ${NETLIFY_AUTH_TOKEN}" \
+                                --data-binary @build.zip \
+                                "https://api.netlify.com/api/v1/sites/56890d9a-013a-4b8f-86b6-be13c10c5b1a/deploys"
+                                ''', returnStdout: true)
+                
+                            echo "Netlify deployment response: ${response}"
+                        }
                 }
             }
         }
