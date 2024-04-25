@@ -39,7 +39,6 @@ pipeline {
                 script {
                     dir('simple-counter') {
                         bat 'npm run build'
-                        bat 'netlify link --id 56890d9a-013a-4b8f-86b6-be13c10c5b1a'
                         bat 'netlify deploy --dir=build --prod'
                         // bat 'if exist build.zip del build.zip'
                         // bat 'powershell Compress-Archive -Path * -DestinationPath build.zip'
