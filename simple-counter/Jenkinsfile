@@ -38,8 +38,8 @@ pipeline {
                 script {
                     dir('simple-counter') {
                         bat 'npm run build'
-                            dir('build'){
-                                withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
+                        bat 'powershell Compress-Archive -Path * -DestinationPath ../build.zip'
+                            withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
                                     def response = bat(script: '''
                                     curl -X POST \
                                     -H "Content-Type: application/zip" \
@@ -48,8 +48,6 @@ pipeline {
                                     "https://api.netlify.com/api/v1/sites/56890d9a-013a-4b8f-86b6-be13c10c5b1a/deploys"
                                     ''', returnStdout: true)
                                     echo "Netlify deployment response: ${response}"
-
-                                }   
                             }
                     }
 
