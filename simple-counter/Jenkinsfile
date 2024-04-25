@@ -39,17 +39,15 @@ pipeline {
             steps {
                 script {
                     dir('simple-counter/build') { // Navigate to the build directory
-                        // Deploy the contents of the build directory to Netlify
-                        withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
-                            def response = bat(script: '''
-                            curl -X POST \
-                            -H "Content-Type: application/zip" \
-                            -H "Authorization: Bearer ${NETLIFY_AUTH_TOKEN}" \
-                            --data-binary "@." \
-                            "https://api.netlify.com/api/v1/sites/56890d9a-013a-4b8f-86b6-be13c10c5b1a/deploys"
-                            ''', returnStdout: true)
-                            echo "Netlify deployment response: ${response}"
-                        }
+                    // Deploy the contents of the build directory to Netlify
+                        def response = bat(script: '''
+                        curl -X POST \
+                        -H "Content-Type: application/zip" \
+                        -H "Authorization: Bearer %NETLIFY_AUTH_TOKEN%" \
+                        --data-binary "@." \
+                        "https://api.netlify.com/api/v1/sites/56890d9a-013a-4b8f-86b6-be13c10c5b1a/deploys"
+                        ''', returnStdout: true)
+                        echo "Netlify deployment response: ${response}"
                     }
                 }
             }
