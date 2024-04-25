@@ -37,6 +37,7 @@ pipeline {
             steps {
                 script {
                     dir('simple-counter') {
+                        bat 'npm run build'
                         // bat 'zip -r ../build.zip ./*'
                         withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
                             def response = bat(script: '''
