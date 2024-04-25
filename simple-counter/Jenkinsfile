@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy to Netlify') {
             steps {
                 script {
-                    dir('simple-counter/build') {
+                    dir('simple-counter') {
                         // bat 'zip -r ../build.zip ./*'
                         withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
                             def response = sh(script: '''
