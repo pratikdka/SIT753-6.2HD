@@ -38,6 +38,7 @@ pipeline {
                 script {
                     dir('simple-counter') {
                         bat 'npm run build'
+                        bat 'if exist build.zip del build.zip'
                         bat 'powershell Compress-Archive -Path * -DestinationPath build.zip'
                             withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
                                     def response = bat(script: '''
