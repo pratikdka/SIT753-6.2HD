@@ -3,6 +3,7 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.2",
     "jest-sonar-reporter": "^2.0.0",
+    "netlify-cli": "^17.23.0",
     "sonarqube": "^0.0.1",
     "sonarqube-scanner": "^3.4.0"
   },
