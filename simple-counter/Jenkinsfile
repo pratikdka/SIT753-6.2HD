@@ -63,14 +63,14 @@ pipeline {
 
         stage('Run e2e tests') {
            steps {
-               withCredentials([string(credentialsId: 'datadog-api-key', variable: 'DATADOG_API_KEY'), string(credentialsId: 'datadog-app-key', variable: 'DATADOG_APP_KEY')]) {
-                   nodejs(nodeJSInstallationName: 'Node 20.12.2') {
+                withCredentials([string(credentialsId: 'datadog-api-key', variable: 'DATADOG_API_KEY'), string(credentialsId: 'datadog-app-key', variable: 'DATADOG_APP_KEY')]) {
+                //    nodejs(nodeJSInstallationName: 'Node 20.12.2') {
                        configFileProvider(
                            [configFile(fileId: 'config-file-id', variable: 'DATADOG_CI_CONFIG')]) {
                            bat 'datadog-ci synthetics run-tests -s "tag:e2e" --config $DATADOG_CI_CONFIG'
                        }
-                   }
-               }
+                }
+                // }
            }
         }
 
