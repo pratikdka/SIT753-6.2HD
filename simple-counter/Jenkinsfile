@@ -40,5 +40,26 @@ pipeline {
                 bat 'xcopy /s /y .\\simple-counter\\build\\* C:\\Apache24\\htdocs\\'
             }
         }
+
+        stage('Release to Production') {
+            steps {
+                script {
+                    dir('simple-counter') {
+                        // Use credentials securely
+                        withCredentials([string(credentialsId: 'sit753-assignment-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
+                            def response = bat(script: '''
+                            curl -X POST \
+                            -H "Content-Type: application/zip" \
+                            -H "Authorization: Bearer ${NETLIFY_AUTH_TOKEN}" \
+                            --data-binary @build.zip \
+                            "https://api.netlify.com/api/v1/sites/56890d9a-013a-4b8f-86b6-be13c10c5b1a/deploys"
+                            ''', returnStdout: true)
+                            echo "Netlify deployment response: ${response}"
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
