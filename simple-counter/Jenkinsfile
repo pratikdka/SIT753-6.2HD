@@ -35,16 +35,10 @@ pipeline {
             }
         }
 
-        stage('Deploy to EC2') {
+        stage('Deploy to Test Environment') {
             steps {
-                script {
-                    sshagent(credentials: ['sit753-key-ec2']) {
-                        sh "scp -r ./simple-counter/build ec2-user@13.55.227.172:/path/to/deployment/location"
-                        sh "ssh ec2-user@13.55.227.172 'sudo systemctl restart nginx'"
-                    }
-                }
+                bat 'xcopy /s/y ./simple-counter/build/* C:\\Apache24\\htdocs\\'
             }
-            
         }
     }
 }
