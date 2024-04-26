@@ -35,13 +35,14 @@ pipeline {
             }
         }
 
-        stage('Deploy to EC2') {
-            steps {
-                script {
-                    // Assuming your EC2 instance uses 'ec2-user' and you have set up the destination directory
-                    sshagent(['sit753-key-ec2']) {
-                        bat "scp -r ./simple-counter/build ec2-user@13.55.227.172:/home/ec2-user/my-app"
-                        bat "ssh ec2-user@13.55.227.172 'sudo systemctl restart nginx'"
+        stages {
+            stage('Deploy to EC2') {
+                steps {
+                    script {
+                        sshagent(credentials: ['sit753-key-ec2']) {
+                            sh "scp -r ./simple-counter/build ec2-user@13.55.227.172:/path/to/deployment/location"
+                            sh "ssh ec2-user@13.55.227.172 'sudo systemctl restart nginx'"
+                        }
                     }
                 }
             }
