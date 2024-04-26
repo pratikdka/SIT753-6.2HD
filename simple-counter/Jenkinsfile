@@ -35,17 +35,16 @@ pipeline {
             }
         }
 
-        stages {
-            stage('Deploy to EC2') {
-                steps {
-                    script {
-                        sshagent(credentials: ['sit753-key-ec2']) {
-                            sh "scp -r ./simple-counter/build ec2-user@13.55.227.172:/path/to/deployment/location"
-                            sh "ssh ec2-user@13.55.227.172 'sudo systemctl restart nginx'"
-                        }
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    sshagent(credentials: ['sit753-key-ec2']) {
+                        sh "scp -r ./simple-counter/build ec2-user@13.55.227.172:/path/to/deployment/location"
+                        sh "ssh ec2-user@13.55.227.172 'sudo systemctl restart nginx'"
                     }
                 }
             }
+            
         }
     }
 }
