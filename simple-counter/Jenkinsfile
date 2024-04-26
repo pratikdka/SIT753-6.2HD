@@ -35,19 +35,13 @@ pipeline {
             }
         }
 
-        stage('Deploy to Netlify') {
+        stage('Deploy to EC2') {
             steps {
                 script {
-                    dir('simple-counter/build') { // Navigate to the build directory
-                    // Deploy the contents of the build directory to Netlify
-                        def response = bat(script: '''
-                        curl -X POST \
-                        -H "Content-Type: application/zip" \
-                        -H "Authorization: Bearer %NETLIFY_AUTH_TOKEN%" \
-                        --data-binary "@." \
-                        "https://api.netlify.com/api/v1/sites/56890d9a-013a-4b8f-86b6-be13c10c5b1a/deploys"
-                        ''', returnStdout: true)
-                        echo "Netlify deployment response: ${response}"
+                    // Assuming your EC2 instance uses 'ec2-user' and you have set up the destination directory
+                    sshagent(['sit753-key-ec2']) {
+                        bat "scp -r ./simple-counter/build ec2-user@13.55.227.172:/home/ec2-user/my-app"
+                        bat "ssh ec2-user@13.55.227.172 'sudo systemctl restart nginx'"
                     }
                 }
             }
