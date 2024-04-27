@@ -8,6 +8,7 @@
     "sonarqube-scanner": "^3.4.0"
   },
   "dependencies": {
+    "@sentry/netlify-build-plugin": "^1.1.1",
     "7zip": "^0.0.6",
     "react-scripts": "^5.0.1",
     "zip": "^1.2.0"
