@@ -11,7 +11,7 @@ describe('App component', () => {
 		const incrementButton = screen.getByText('+');
 		fireEvent.click(incrementButton);
 		const input = screen.getByDisplayValue('1');
-		expect(input).toHaveValue('2');
+		expect(input).toHaveValue('1');
 	});
 
 	test('decrements counter', () => {
