@@ -10,7 +10,7 @@ describe('App component', () => {
 		render(<App />);
 		const incrementButton = screen.getByText('+');
 		fireEvent.click(incrementButton);
-		const input = screen.getByDisplayValue('2');
+		const input = screen.getByDisplayValue('1');
 		expect(input).toHaveValue('1');
 	});
 
