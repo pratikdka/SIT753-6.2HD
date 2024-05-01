@@ -13,7 +13,7 @@ function App() {
 	};
 
 	const clear = () => {
-	setCount(0);
+		setCount(0);
 	};
 
 	return (
